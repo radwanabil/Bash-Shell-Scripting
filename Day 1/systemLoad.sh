@@ -1,14 +1,12 @@
 #!/bin/bash
-while true; do
-  # Get system load average for the past 1 minute
-  load=$(uptime | awk '{print $10}')
 
-  # Get current date and time in YYYY/MM/DD HH:MM:SS format
-  datetime=$(date '+%Y/%m/%d %H:%M:%S')
+# This script monitors system load and appends the output to the system-load log file
 
-  # Write the load average and datetime to the system load log file
-  echo "$datetime $load" >> /var/log/system-load
+# Get the current date and time
+date=$(date +"%Y-%m-%d %H:%M:%S")
 
-  # Wait for 5 seconds before checking the system load again
-  sleep 5
-done
+# Get the system load average for the past 1 minute
+load=$(uptime | awk '{print $10}')
+
+# Append the load average and date/time to the log file
+echo "$date - Load average: $load" >> /var/log/system-load
